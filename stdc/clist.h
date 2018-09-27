@@ -9,7 +9,7 @@
 
 /*****************************************************************************
 *                                                                            *
-*  Define a structure for circular doubly-linked list elements.                            *
+*  Define a structure for circular doubly-linked list elements.              *
 *                                                                            *
 *****************************************************************************/
 
@@ -23,7 +23,7 @@ struct CListElmt_  *next;
 
 /*****************************************************************************
 *                                                                            *
-*  Define a structure for circular doubly-linked lists.                                    *
+*  Define a structure for circular doubly-linked lists.                      *
 *                                                                            *
 *****************************************************************************/
 
@@ -61,5 +61,7 @@ int clist_remove(CList *list, CListElmt *element, void **data);
 #define clist_data(element) ((element)->data)
 
 #define clist_next(element) ((element)->next)
+
+#define clist_prev(element) ((element)->prev)
 
 #endif
