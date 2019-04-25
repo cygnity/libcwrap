@@ -12,6 +12,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <stdio.h>
+#include <string.h>
 
 int fgetline(FILE *file, char **output)
 {
