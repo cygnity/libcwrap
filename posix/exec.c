@@ -36,7 +36,7 @@ __exec(int (*exec_func)(const char *cmd, char * const argv[]),
     // child
     //
 
-    if (exec_func(argv[0], argv) == -1) {
+    if (exec_func(cmd, argv) == -1) {
       // exec error
       kill(getpid(), errno);
       // => parent response signal (errno)
