@@ -28,22 +28,12 @@ using namespace std::rel_ops;
 
 namespace stdex {
 
-std::string trim(const std::string &str);
-std::vector<std::string> split(const std::string &line, const char &limit);
-std::vector<std::string> esplit(const std::string &line, const char &limit);
-std::string join(const std::vector<std::string> &data, const char &limit);
-
 class Float {
 public:
-  inline Float(float tv, int tp) :
-      v(tv), p(tp) {
-  }
-  inline float value() const {
-    return v;
-  }
-  inline int precision() const {
-    return p;
-  }
+  inline Float(float tv, int tp) : v(tv), p(tp) {}
+  inline float   value() const {return v;}
+  inline int precision() const {return p;}
+  operator float() const;
 private:
   float v;
   int p;
@@ -51,15 +41,10 @@ private:
 
 class Double {
 public:
-  inline Double(double tv, int tp) :
-      v(tv), p(tp) {
-  }
-  inline double value() const {
-    return v;
-  }
-  inline int precision() const {
-    return p;
-  }
+  inline Double(double tv, int tp) : v(tv), p(tp) {}
+  inline double  value() const {return v;}
+  inline int precision() const {return p;}
+  operator double() const;
 private:
   double v;
   int p;
@@ -91,11 +76,28 @@ operator <<(std::basic_ostream<charT, traits> &strm, const Double &out) {
   return strm;
 }
 
-bool operator ==(const Float &v1, const Float &v2);
-bool operator ==(const Double &v1, const Double &v2);
-bool operator <(const Float &v1, const Float &v2);
-bool operator <(const Double &v1, const Double &v2);
-
+inline bool
+operator == (const Float &v1, const Float &v2) {
+  return (float)v1 == (float)v2;
+}
+inline bool
+operator == (const Double &v1, const Double &v2) {
+  return (double)v1 == (double)v2;
+}
+inline bool
+operator < (const Float &v1, const Float &v2) {
+  return (float)v1 < (float)v2;
+}
+inline bool
+operator < (const Double &v1, const Double &v2) {
+  return (double)v1 < (double)v2;
 }
 
-#endif /* STDEX_H_ */
+std::string trim(const std::string &str);
+std::vector<std::string> split(const std::string &line, const char &limit);
+std::vector<std::string> esplit(const std::string &line, const char &limit);
+std::string join(const std::vector<std::string> &data, const char &limit);
+
+}/* namespace stdex */
+
+#endif  /* STDEX_H_ */

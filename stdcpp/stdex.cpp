@@ -16,13 +16,19 @@
  */
 
 #include "stdex.h"
-
-#include <sstream>
-#include <iomanip>
 #include <cmath>
-#include <cctype>
 
 namespace stdex {
+
+Float::operator float() const
+{
+  return roundf(v * powf(10.0, p)) / powf(10.0, p);
+}
+
+Double::operator double() const
+{
+  return round(v * pow(10.0, p)) / pow(10.0, p);
+}
 
 std::string
 trim(const std::string &str)
@@ -123,56 +129,4 @@ join(const std::vector<std::string> &data, const char &limit)
   return ostrm.str();
 }
 
-static double
-_round(double x, short y)
-{
-  double val = x;
-
-  val *= pow(10.0, y);
-  val = round(val);
-  val /= pow(10.0, y);
-
-  return (val);
 }
-
-static float
-_roundf(float x, short y)
-{
-  float val = x;
-
-  val *= powf(10.0, y);
-  val = roundf(val);
-  val /= powf(10.0, y);
-
-  return (val);
-}
-
-bool
-operator ==(const Float &v1, const Float &v2)
-{
-  return _roundf(v1.value(), v1.precision())
-      == _roundf(v2.value(), v2.precision());
-}
-
-bool
-operator ==(const Double &v1, const Double &v2)
-{
-  return _round(v1.value(), v1.precision())
-      == _round(v2.value(), v2.precision());
-}
-
-bool
-operator <(const Float &v1, const Float &v2)
-{
-  return _roundf(v1.value(), v1.precision())
-      < _roundf(v2.value(), v2.precision());
-}
-
-bool
-operator <(const Double &v1, const Double &v2)
-{
-  return _round(v1.value(), v1.precision()) < _round(v2.value(), v2.precision());
-}
-
-}
-
